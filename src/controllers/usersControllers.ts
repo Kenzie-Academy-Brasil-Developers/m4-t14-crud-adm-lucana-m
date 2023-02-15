@@ -1,13 +1,14 @@
 import { Request, Response } from "express";
+import { IUserRequest } from "../interfaces/usersInterface";
 import { createUserService } from "../services/users/createUserService";
 
-export const createUsersController = (
+export const createUsersController = async (
   request: Request,
   response: Response
-): Response => {
-  createUserService();
+): Promise<Response> => {
+  const requestData: IUserRequest = request.body;
 
-  return response.json({
-    message: "Funcionando",
-  });
+  const newUser = await createUserService(requestData);
+
+  return response.status(201).json(newUser);
 };

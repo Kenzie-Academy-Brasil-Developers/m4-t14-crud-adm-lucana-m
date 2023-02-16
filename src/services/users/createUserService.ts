@@ -7,6 +7,7 @@ import format from "pg-format";
 import { client } from "../../database";
 import { QueryConfig, QueryResult } from "pg";
 import { AppError } from "../../errors";
+import { returnWithoutPassword } from "../../schemas/userSchemas";
 
 export const createUserService = async (
   requestData: IUserRequest
@@ -32,7 +33,7 @@ export const createUserService = async (
     `
       INSERT INTO users (%I)
       VALUES (%L)
-      RETURNING id, name, email, admin, active
+      RETURNING *;
     `,
     Object.keys(requestData),
     Object.values(requestData)
@@ -40,5 +41,7 @@ export const createUserService = async (
 
   const queryResult: IUserResult = await client.query(template);
 
-  return queryResult.rows[0];
+  const user = returnWithoutPassword.parse(queryResult.rows[0]);
+
+  return user;
 };

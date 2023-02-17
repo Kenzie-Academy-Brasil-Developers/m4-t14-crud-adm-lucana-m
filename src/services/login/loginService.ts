@@ -5,6 +5,7 @@ import { client } from "../../database";
 import { AppError } from "../../errors";
 import { compare } from "bcryptjs";
 import jwt from "jsonwebtoken";
+import "dotenv/config";
 
 export const loginService = async (
   loginData: LoginRequest
@@ -39,7 +40,7 @@ export const loginService = async (
     {
       admin: queryResult.rows[0].admin,
     },
-    "TESTE",
+    process.env.SECRET_KEY!,
     {
       expiresIn: "24h",
       subject: queryResult.rows[0].id,

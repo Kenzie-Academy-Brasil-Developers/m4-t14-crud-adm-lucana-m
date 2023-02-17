@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import { AppError } from "../errors";
-import jwt from "jsonwebtoken";
+import jwt, { VerifyErrors } from "jsonwebtoken";
 import "dotenv/config";
 
 export const verifyTokenMiddleware = async (
-  request: Request,
+  request: Request | any,
   response: Response,
   next: NextFunction
 ): Promise<void> => {

@@ -6,7 +6,7 @@
   "author": "lucana-m <lucana_monica@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --ignore-watch node_modules --rs --cls src/server.ts"
+    "dev": "ts-node-dev --files --ignore-watch node_modules --rs --cls src/server.ts"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

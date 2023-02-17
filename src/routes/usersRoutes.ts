@@ -1,5 +1,9 @@
 import { Router } from "express";
-import { createUsersController } from "../controllers/usersControllers";
+import {
+  createUsersController,
+  listUsersController,
+  userProfileController,
+} from "../controllers/usersControllers";
 import { createUserSchema } from "../schemas/userSchemas";
 import { validatedDataMiddleware } from "../middlewares/validatedDataMiddleware";
 import { verifyTokenMiddleware } from "../middlewares/verifyTokenMiddleware";
@@ -13,4 +17,11 @@ userRoutes.post(
   createUsersController
 );
 
-userRoutes.get("", verifyTokenMiddleware, verifyAdminMiddleware);
+userRoutes.get(
+  "",
+  verifyTokenMiddleware,
+  verifyAdminMiddleware,
+  listUsersController
+);
+
+userRoutes.get("/profile", verifyTokenMiddleware, userProfileController);

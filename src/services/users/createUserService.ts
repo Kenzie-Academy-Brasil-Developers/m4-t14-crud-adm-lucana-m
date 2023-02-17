@@ -26,7 +26,7 @@ export const createUserService = async (
   const queryResultEmail: QueryResult = await client.query(queryConfig);
 
   if (queryResultEmail.rowCount > 0) {
-    throw new AppError("User already exists", 409);
+    throw new AppError("E-mail already registered", 409);
   }
 
   template = format(

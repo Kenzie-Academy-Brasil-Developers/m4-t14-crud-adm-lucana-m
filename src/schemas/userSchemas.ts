@@ -11,8 +11,11 @@ export const createUserSchema = z.object({
 });
 
 export const returnUserSchema = createUserSchema.extend({
-  id: z.string(),
+  id: z.string().transform((str) => {
+    return Number(str);
+  }),
   active: z.boolean(),
 });
 
 export const returnWithoutPassword = returnUserSchema.omit({ password: true });
+export const allUsersSchema = z.array(returnWithoutPassword);

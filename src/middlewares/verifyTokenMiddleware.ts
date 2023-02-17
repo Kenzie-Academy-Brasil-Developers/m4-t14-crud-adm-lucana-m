@@ -11,12 +11,12 @@ export const verifyTokenMiddleware = async (
   let token = request.headers.authorization;
 
   if (!token) {
-    throw new AppError("Provide a token.", 401);
+    throw new AppError("Missing Bearer Token", 401);
   }
 
   token = token.split(" ")[1];
 
-  jwt.verify(token, process.env.SECRET_KEY!, (error, decoded: any) => {
+  jwt.verify(token, process.env.SECRET_KEY!, (error: any, decoded: any) => {
     if (error) {
       throw new AppError(error.message, 401);
     }

@@ -9,7 +9,7 @@ export const verifyAdminMiddleware = (
   const authenticatedUser = request.user;
 
   if (!authenticatedUser.admin) {
-    throw new AppError("User don`t have permission", 403);
+    throw new AppError("Insufficient Permission", 403);
   }
 
   return next();

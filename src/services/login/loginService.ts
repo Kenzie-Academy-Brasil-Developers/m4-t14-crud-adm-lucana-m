@@ -36,6 +36,12 @@ export const loginService = async (
     throw new AppError("Wrong email or password", 401);
   }
 
+  const verifyActive: boolean = queryResult.rows[0].active;
+
+  if (!verifyActive) {
+    throw new AppError("User inactive", 401);
+  }
+
   const token: string = jwt.sign(
     {
       admin: queryResult.rows[0].admin,
@@ -43,7 +49,7 @@ export const loginService = async (
     process.env.SECRET_KEY!,
     {
       expiresIn: "24h",
-      subject: queryResult.rows[0].id,
+      subject: queryResult.rows[0].id.toString(),
     }
   );
 

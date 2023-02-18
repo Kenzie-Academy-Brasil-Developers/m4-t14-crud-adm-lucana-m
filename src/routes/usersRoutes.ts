@@ -3,8 +3,9 @@ import {
   createUsersController,
   listUsersController,
   userProfileController,
+  updateUser,
 } from "../controllers/usersControllers";
-import { createUserSchema } from "../schemas/userSchemas";
+import { createUserSchema, updateUserSchema } from "../schemas/userSchemas";
 import { validatedDataMiddleware } from "../middlewares/validatedDataMiddleware";
 import { verifyTokenMiddleware } from "../middlewares/verifyTokenMiddleware";
 import { verifyAdminMiddleware } from "../middlewares/verifyAdminMiddleware";
@@ -25,3 +26,9 @@ userRoutes.get(
 );
 
 userRoutes.get("/profile", verifyTokenMiddleware, userProfileController);
+userRoutes.patch(
+  "/:id",
+  verifyTokenMiddleware,
+  validatedDataMiddleware(updateUserSchema),
+  updateUser
+);

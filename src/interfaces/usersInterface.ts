@@ -13,3 +13,8 @@ export type UserWithPassword = QueryResult<IUser>;
 export type UserOmitPassword = Omit<IUser, "password">;
 export type IUserResult = QueryResult<UserOmitPassword>;
 export type allUsersReturn = z.infer<typeof allUsersSchema>;
+
+export interface returnUpdatedUser {
+  name?: string;
+  email?: string;
+}

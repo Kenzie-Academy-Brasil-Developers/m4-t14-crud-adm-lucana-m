@@ -17,5 +17,10 @@ export const returnUserSchema = createUserSchema.extend({
   active: z.boolean(),
 });
 
+export const updateUserSchema = z.object({
+  name: z.string().min(2).max(20).optional(),
+  email: z.string().email().optional(),
+});
+
 export const returnWithoutPassword = returnUserSchema.omit({ password: true });
 export const allUsersSchema = z.array(returnWithoutPassword);

@@ -4,6 +4,7 @@ import { createUserService } from "../services/users/createUserService";
 import { listUsersService } from "../services/users/listUsersService";
 import { userProfileService } from "../services/users/userProfileService";
 import { updateUserService } from "../services/users/updateUserService";
+import { softDeleteUserService } from "../services/users/softDeleteUserService";
 
 export const createUsersController = async (
   request: Request,
@@ -34,7 +35,7 @@ export const userProfileController = async (
   return response.status(200).json(userProfile);
 };
 
-export const updateUser = async (
+export const updateUserController = async (
   request: Request,
   response: Response
 ): Promise<Response> => {
@@ -42,4 +43,13 @@ export const updateUser = async (
   const user = await updateUserService(request.params.id, userData);
 
   return response.status(200).json(user);
+};
+
+export const softDeleteUserController = async (
+  request: Request,
+  response: Response
+): Promise<Response> => {
+  await softDeleteUserService(request.params.id);
+
+  return response.status(204).send();
 };

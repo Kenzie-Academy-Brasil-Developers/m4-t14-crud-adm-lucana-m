@@ -3,7 +3,8 @@ import {
   createUsersController,
   listUsersController,
   userProfileController,
-  updateUser,
+  updateUserController,
+  softDeleteUserController,
 } from "../controllers/usersControllers";
 import { createUserSchema, updateUserSchema } from "../schemas/userSchemas";
 import { validatedDataMiddleware } from "../middlewares/validatedDataMiddleware";
@@ -30,5 +31,6 @@ userRoutes.patch(
   "/:id",
   verifyTokenMiddleware,
   validatedDataMiddleware(updateUserSchema),
-  updateUser
+  updateUserController
 );
+userRoutes.delete("/:id", verifyTokenMiddleware, softDeleteUserController);

@@ -10,6 +10,7 @@ import { createUserSchema, updateUserSchema } from "../schemas/userSchemas";
 import { validatedDataMiddleware } from "../middlewares/validatedDataMiddleware";
 import { verifyTokenMiddleware } from "../middlewares/verifyTokenMiddleware";
 import { verifyAdminMiddleware } from "../middlewares/verifyAdminMiddleware";
+import { verifyUserExistsMiddleware } from "../middlewares/verifyUserExistsMiddleware";
 
 export const userRoutes: Router = Router();
 
@@ -29,8 +30,14 @@ userRoutes.get(
 userRoutes.get("/profile", verifyTokenMiddleware, userProfileController);
 userRoutes.patch(
   "/:id",
+  verifyUserExistsMiddleware,
   verifyTokenMiddleware,
   validatedDataMiddleware(updateUserSchema),
   updateUserController
 );
-userRoutes.delete("/:id", verifyTokenMiddleware, softDeleteUserController);
+userRoutes.delete(
+  "/:id",
+  verifyUserExistsMiddleware,
+  verifyTokenMiddleware,
+  softDeleteUserController
+);

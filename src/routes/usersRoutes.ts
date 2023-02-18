@@ -5,6 +5,7 @@ import {
   userProfileController,
   updateUserController,
   softDeleteUserController,
+  recoverUserController,
 } from "../controllers/usersControllers";
 import { createUserSchema, updateUserSchema } from "../schemas/userSchemas";
 import { validatedDataMiddleware } from "../middlewares/validatedDataMiddleware";
@@ -40,4 +41,11 @@ userRoutes.delete(
   verifyUserExistsMiddleware,
   verifyTokenMiddleware,
   softDeleteUserController
+);
+userRoutes.put(
+  "/:id/recover",
+  verifyUserExistsMiddleware,
+  verifyTokenMiddleware,
+  verifyAdminMiddleware,
+  recoverUserController
 );

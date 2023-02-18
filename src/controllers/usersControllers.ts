@@ -5,6 +5,7 @@ import { listUsersService } from "../services/users/listUsersService";
 import { userProfileService } from "../services/users/userProfileService";
 import { updateUserService } from "../services/users/updateUserService";
 import { softDeleteUserService } from "../services/users/softDeleteUserService";
+import { recoverUserService } from "../services/users/recoverUserService";
 
 export const createUsersController = async (
   request: Request,
@@ -52,4 +53,13 @@ export const softDeleteUserController = async (
   await softDeleteUserService(request.params.id);
 
   return response.status(204).send();
+};
+
+export const recoverUserController = async (
+  request: Request,
+  response: Response
+): Promise<Response> => {
+  const userActive = await recoverUserService(request.params.id);
+
+  return response.status(200).json(userActive);
 };

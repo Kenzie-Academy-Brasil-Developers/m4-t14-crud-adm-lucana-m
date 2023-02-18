@@ -1,4 +1,4 @@
-import { QueryConfig, QueryResult } from "pg";
+import { QueryConfig } from "pg";
 import format from "pg-format";
 import { client } from "../../database";
 import {
